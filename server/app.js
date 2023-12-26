@@ -12,7 +12,7 @@ const userSchema = new Schema({
     username: String,
     password: String,
     role: String,
-});
+})
 
 
 const Users = mongoose.model('User', userSchema);
@@ -38,14 +38,13 @@ app.post('/login', async (req, res) => {
         if (!user) {
             res.status(403).send({ message: "istiadeci tapilmadi" })
             return
-        }
+        }       
         if (user.password !== password) {
             res.status(403).send({ message: "parol tapilmadi" })
             return
         }
-
         const token = jwt.sign({ username: user.username, role: user.role }, jwtPassword);
-        res.send(token)
+        res.status.send(token)                              
     } catch (error) {
         res.status(403).send({ message: error })
     }
