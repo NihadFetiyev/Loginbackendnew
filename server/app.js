@@ -2,20 +2,13 @@ import express from 'express'
 const app = express()
 const port = 3000
 import jwt from "jsonwebtoken"
-import mongoose from 'mongoose';
-const { Schema } = mongoose;
+import mongoose from 'mongoose'
+import Users from './source/models/userSchema.js'
 
 const jwtPassword = "li15@%^5"
 app.use(express.json())
 
-const userSchema = new Schema({
-    username: String,
-    password: String,
-    role: String,
-})
 
-
-const Users = mongoose.model('User', userSchema);
 
 app.get('/users', async (req, res) => {
     const user = await Users.find({})
@@ -25,12 +18,13 @@ app.get('/users', async (req, res) => {
 app.post('/register', async (req, res) => {
     try {
         const user = await Users.create(req.body)
-        const token = jwt.sign({ username: user.username, role: "User" }, jwtPassword);
+        const token = jwt.sign({ username: user.username, role: "User" }, jwtPassword,{expiresIn: "60s"});
         res.send(token)
     } catch (error) {
         res.status(403).send({ message: error })
     }
 })
+
 app.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body
@@ -43,8 +37,8 @@ app.post('/login', async (req, res) => {
             res.status(403).send({ message: "parol tapilmadi" })
             return
         }
-        const token = jwt.sign({ username: user.username, role: user.role }, jwtPassword);
-        res.status.send(token)                              
+        const token = jwt.sign({ username: user.username, role: "user" }, jwtPassword);
+        res.status(200).send(token)                              
     } catch (error) {
         res.status(403).send({ message: error })
     }
@@ -55,7 +49,7 @@ app.delete('/users/:id', async (req, res) => {
         const { id } = req.params
         const token = req.headers.authorization
         const decoded = jwt.verify(token, 'jwtPassword');
-        if (decoded.role === "Admin") {
+        if (req.role === "Admin") {
             const user = await Users.findByIdAndDelete(id)
             res.status(200).send(user)
             return
