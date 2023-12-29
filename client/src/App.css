@@ -1,0 +1,8 @@
+a{
+    margin: 20px;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

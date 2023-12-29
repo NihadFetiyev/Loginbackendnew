@@ -1,10 +1,12 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import cors from 'cors'
 import { AuthRoute } from './source/routes/authRoute.js'
 import { UserRoute } from './source/routes/userRoute.js'
 const app = express()
 const port = 3000
 app.use(express.json())
+app.use(cors())
 
 app.use("/",AuthRoute)
 app.use("/",UserRoute)
