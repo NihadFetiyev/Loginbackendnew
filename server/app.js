@@ -3,10 +3,12 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import { AuthRoute } from './source/routes/authRoute.js'
 import { UserRoute } from './source/routes/userRoute.js'
+import bodyParser from 'body-parser'
 const app = express()
 const port = 3000
-app.use(express.json())
+// app.use(express.json())
 app.use(cors())
+app.use(bodyParser.json())
 
 app.use("/",AuthRoute)
 app.use("/",UserRoute)

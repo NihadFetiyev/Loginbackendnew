@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../Context'
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const { setToken, setDecodedToken } = useContext(AuthContext)
   const [inpUser, setinpUser] = useState()
   const [inpPassword, setinpPassword] = useState()
+  const navigate = useNavigate()
 
   const HandleLogin = async (e) => {
     e.preventDefault()
@@ -25,6 +27,8 @@ function Login() {
 
         setToken(data)
         setDecodedToken(decoded)
+
+        navigate("/")
 
         console.log(data)
         console.log(decoded);

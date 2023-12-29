@@ -7,6 +7,7 @@ export const AuthContext = createContext()
 function AuthProvider({children}) {
     const [token, setToken] = UseLocalStorage("user",null)
     const [decodedToken, setDecodedToken] = useState(token ? jwtDecode(token)  :null)
+    // const [decodedToken, setDecodedToken] = UseLocalStorage("user",null)
 
     function removeToken() {
       setToken(null)

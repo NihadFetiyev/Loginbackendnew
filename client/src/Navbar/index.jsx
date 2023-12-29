@@ -16,7 +16,7 @@ function Navbar() {
           <NavLink to={"/signup"} >Sign Up</NavLink>
         </>
       }
-      { decodedToken && decodedToken.role === "Admin" ?    <NavLink to={"/admin"} >Admin</NavLink> :  null}
+      { decodedToken && decodedToken.role === "Admin" ? <NavLink to={"/admin"} >Admin</NavLink> :  null}
     </div>
   )
 }

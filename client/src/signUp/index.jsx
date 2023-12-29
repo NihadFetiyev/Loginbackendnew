@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function SignUp() {
   const [inpUser, setinpUser] = useState()
   const [InpPassword, setInpPassword] = useState()
-
+  const navigate = useNavigate()
   function HandleSignUp(e) {
     e.preventDefault()
     fetch("http://localhost:3000/register",
@@ -17,13 +18,14 @@ function SignUp() {
     )
       .then(res => res.json())
       .then(data => {
+        navigate("/login")
         console.log(data);
       }
       )
-      .catch(err=>console.log(err))
+      .catch(err => console.log(err))
   }
 
-  
+
   return (
     <div>
       <h1>SignUp</h1>
