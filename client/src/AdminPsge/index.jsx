@@ -8,19 +8,19 @@ function Admin() {
 
   const fetchusers = () => {
     fetch("http://localhost:3000/users",
-    {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    }
-  )
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      setuser(data)
-    }
+      {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      }
     )
-    .catch(err => console.log(err))
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setuser(data)
+      }
+      )
+      .catch(err => console.log(err))
   }
 
 
@@ -31,7 +31,7 @@ function Admin() {
 
   function handleDelete(id) {
 
-    fetch("http://localhost:3000/users/"+ id,
+    fetch("http://localhost:3000/users/" + id,
       {
         method: "delete",
         headers: {
@@ -50,7 +50,7 @@ function Admin() {
 
   function handleUpdate(id) {
 
-    fetch("http://localhost:3000/users/"+ id,
+    fetch("http://localhost:3000/users/" + id,
       {
         method: "put",
         headers: {
@@ -70,16 +70,16 @@ function Admin() {
     <div>
       <h1>Admin</h1>
       <ol>
-        {user && user.map(x =>(
+        {user && user.map(x => (
           <li key={x._id}>
             <span>{x.username}-{x.role}-{x.password}</span>
-            <button onClick={()=>handleDelete(x._id)}>delete</button>
-            <button onClick={()=>handleUpdate(x._id)}>Update</button>
+            <button onClick={() => handleDelete(x._id)}>delete</button>
+            <button onClick={() => handleUpdate(x._id)}>Update</button>
           </li>
-)
+        )
         )}
       </ol>
-
+{/* /eweqfwefw */}
     </div>
   )
 }
